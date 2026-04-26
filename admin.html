@@ -1,0 +1,1891 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin CMS | Sanemidev</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      :root {
+        --bg: #050508;
+        --surface: #0f0f1a;
+        --surface2: #16162a;
+        --primary: #00d4ff;
+        --secondary: #0055ff;
+        --danger: #ff4757;
+        --success: #00d4a0;
+        --text: #ffffff;
+        --text-dim: #94a3b8;
+        --border: rgba(255, 255, 255, 0.06);
+        --sidebar-w: 240px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Plus Jakarta Sans", sans-serif;
+        display: flex;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* ── LOGIN SCREEN ── */
+      #login-screen {
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        padding: 20px;
+      }
+      .login-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 40px 30px;
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+      }
+      .login-box .logo {
+        font-weight: 800;
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+      }
+      .login-box .logo span {
+        color: var(--primary);
+      }
+      .login-box p {
+        color: var(--text-dim);
+        margin-bottom: 32px;
+        font-size: 0.9rem;
+      }
+      .login-box input {
+        width: 100%;
+        padding: 14px 18px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: white;
+        font-family: inherit;
+        font-size: 0.95rem;
+        outline: none;
+        margin-bottom: 12px;
+        transition: 0.2s;
+      }
+      .login-box input:focus {
+        border-color: var(--primary);
+      }
+      .btn-primary {
+        width: 100%;
+        padding: 14px;
+        background: var(--primary);
+        color: #000;
+        border: none;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.2s;
+        margin-top: 8px;
+      }
+      .btn-primary:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+      .login-error {
+        color: var(--danger);
+        font-size: 0.85rem;
+        margin-top: 10px;
+        display: none;
+      }
+
+      /* ── SIDEBAR ── */
+      #sidebar {
+        width: var(--sidebar-w);
+        background: var(--surface);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        padding: 24px 0;
+        z-index: 100;
+        transition: 0.3s;
+      }
+      .sidebar-logo {
+        padding: 0 20px 24px;
+        font-weight: 800;
+        font-size: 1.2rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .sidebar-logo span {
+        color: var(--primary);
+      }
+      .sidebar-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 20px 12px;
+        flex: 1;
+      }
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        color: var(--text-dim);
+        font-weight: 500;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: 0.2s;
+        border: none;
+        background: none;
+        text-align: left;
+        width: 100%;
+      }
+      .menu-item i {
+        width: 18px;
+        text-align: center;
+        font-size: 0.95rem;
+      }
+      .menu-item:hover {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      .menu-item.active {
+        background: rgba(0, 212, 255, 0.1);
+        color: var(--primary);
+        border: 1px solid rgba(0, 212, 255, 0.15);
+      }
+      .sidebar-footer {
+        padding: 16px 12px;
+        border-top: 1px solid var(--border);
+      }
+      .btn-logout {
+        width: 100%;
+        padding: 10px 16px;
+        background: rgba(255, 71, 87, 0.1);
+        border: 1px solid rgba(255, 71, 87, 0.2);
+        color: var(--danger);
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 0.88rem;
+      }
+      .btn-logout:hover {
+        background: rgba(255, 71, 87, 0.2);
+      }
+      .user-info {
+        padding: 0 16px 12px;
+        font-size: 0.8rem;
+        color: var(--text-dim);
+        text-align: center;
+      }
+      .user-info strong {
+        color: var(--text);
+        display: block;
+        font-size: 0.85rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* ── MAIN CONTENT ── */
+      #main {
+        margin-left: var(--sidebar-w);
+        padding: 30px;
+        flex: 1;
+        min-height: 100vh;
+        width: calc(100% - var(--sidebar-w));
+        transition: 0.3s;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      /* Page Header */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      .page-header h1 {
+        font-size: 1.6rem;
+        font-weight: 800;
+      }
+      .page-header p {
+        color: var(--text-dim);
+        font-size: 0.9rem;
+        margin-top: 4px;
+      }
+
+      /* Stat Cards */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 30px;
+      }
+      .stat-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+      }
+      .stat-box .label {
+        color: var(--text-dim);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .stat-box .value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary);
+      }
+      .stat-box .sub {
+        color: var(--text-dim);
+        font-size: 0.75rem;
+        margin-top: 4px;
+      }
+
+      /* Table */
+      .table-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .table-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--border);
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .table-toolbar h3 {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      .table-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .search-input {
+        padding: 8px 12px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: white;
+        font-family: inherit;
+        font-size: 0.85rem;
+        outline: none;
+        width: 100%;
+        max-width: 250px;
+        transition: 0.2s;
+      }
+      .search-input:focus {
+        border-color: var(--primary);
+      }
+      .btn-add {
+        padding: 8px 16px;
+        background: var(--primary);
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+      .btn-add:hover {
+        opacity: 0.9;
+      }
+
+      .table-wrapper {
+        overflow-x: auto;
+        width: 100%;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+      }
+      th {
+        padding: 12px 20px;
+        text-align: left;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.02);
+      }
+      td {
+        padding: 14px 20px;
+        font-size: 0.85rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .badge-project {
+        background: rgba(0, 212, 255, 0.15);
+        color: var(--primary);
+      }
+      .badge-cert {
+        background: rgba(0, 85, 255, 0.15);
+        color: #6699ff;
+      }
+      .td-actions {
+        display: flex;
+        gap: 6px;
+      }
+      .btn-icon {
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: none;
+        color: var(--text-dim);
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .btn-icon:hover {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      .btn-icon.edit:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+      .btn-icon.delete:hover {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+      .empty-table {
+        text-align: center;
+        padding: 40px;
+        color: var(--text-dim);
+        font-size: 0.9rem;
+      }
+
+      /* ── MODAL ── */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.2s;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .modal {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 24px;
+        width: 100%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform: translateY(15px);
+        transition: 0.2s;
+      }
+      .modal-overlay.open .modal {
+        transform: translateY(0);
+      }
+      .modal h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 14px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-dim);
+        margin-bottom: 6px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: white;
+        font-family: inherit;
+        font-size: 0.9rem;
+        outline: none;
+        resize: vertical;
+        transition: 0.2s;
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: var(--primary);
+      }
+      .form-group select option {
+        background: var(--surface);
+      }
+      .modal-btns {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      .btn-cancel {
+        padding: 10px 20px;
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.2s;
+        font-size: 0.85rem;
+      }
+      .btn-cancel:hover {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      .btn-save {
+        padding: 10px 24px;
+        background: var(--primary);
+        color: #000;
+        border: none;
+        border-radius: 10px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 0.85rem;
+      }
+      .btn-save:hover {
+        opacity: 0.9;
+      }
+      .img-preview {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-top: 8px;
+        display: none;
+        background: var(--bg);
+      }
+
+      /* Image Upload Zone */
+      .upload-zone {
+        border: 1.5px dashed var(--border);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.2s;
+        margin-top: 8px;
+      }
+      .upload-zone:hover {
+        border-color: var(--primary);
+      }
+      .upload-zone p {
+        color: var(--text-dim);
+        font-size: 0.8rem;
+      }
+      .upload-zone span {
+        color: var(--primary);
+        font-size: 0.75rem;
+      }
+      .upload-progress-bar {
+        height: 3px;
+        background: var(--border);
+        border-radius: 100px;
+        margin-top: 8px;
+        display: none;
+      }
+      .upload-progress-fill {
+        height: 100%;
+        background: var(--primary);
+        border-radius: 100px;
+        width: 0%;
+        transition: width 0.3s;
+      }
+
+      /* Loading overlay */
+      .page-loading {
+        text-align: center;
+        padding: 50px;
+        color: var(--text-dim);
+      }
+      .spinner {
+        width: 28px;
+        height: 28px;
+        border: 2px solid var(--border);
+        border-top-color: var(--primary);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 0 auto 12px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Settings page */
+      .settings-section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+      .settings-section h3 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 10px;
+      }
+      .settings-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      /* Responsive Breakpoints */
+      @media (max-width: 900px) {
+        #sidebar {
+          width: 64px;
+        }
+        .sidebar-logo,
+        .menu-item span,
+        .user-info strong,
+        .btn-logout span {
+          display: none;
+        }
+        .menu-item {
+          justify-content: center;
+          padding: 12px;
+        }
+        .btn-logout {
+          background: none;
+          border: none;
+          padding: 12px;
+        }
+        .btn-logout i {
+          margin: 0;
+        }
+        #main {
+          margin-left: 64px;
+          width: calc(100% - 64px);
+          padding: 20px 15px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .stats-row {
+          grid-template-columns: 1fr 1fr;
+        }
+        .settings-grid {
+          grid-template-columns: 1fr;
+        }
+        .page-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .table-actions {
+          justify-content: space-between;
+        }
+        .search-input {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════════════════════ -->
+    <div id="login-screen">
+      <div class="login-box">
+        <div class="logo">S<span>anemidev.</span></div>
+        <p>Admin CMS — Login untuk melanjutkan</p>
+        <input
+          type="email"
+          id="login-email"
+          placeholder="Email admin"
+          autocomplete="email"
+        />
+        <input
+          type="password"
+          id="login-pass"
+          placeholder="Password"
+          autocomplete="current-password"
+        />
+        <button class="btn-primary" onclick="doLogin()">
+          <span id="login-btn-text">Masuk ke Dashboard</span>
+        </button>
+        <div class="login-error" id="login-error">
+          Email atau password salah.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════════════════════════ -->
+    <nav id="sidebar">
+      <div class="sidebar-logo">S<span>anemidev.</span></div>
+      <div class="user-info">
+        <strong id="user-name">Admin</strong>
+      </div>
+      <div class="sidebar-menu">
+        <button class="menu-item active" onclick="showPage('dashboard')">
+          <i class="fa fa-chart-line"></i><span>Dashboard</span>
+        </button>
+        <button class="menu-item" onclick="showPage('portfolio')">
+          <i class="fa fa-folder-open"></i><span>Portfolio</span>
+        </button>
+        <button class="menu-item" onclick="showPage('certificates')">
+          <i class="fa fa-certificate"></i><span>Sertifikasi</span>
+        </button>
+        <button class="menu-item" onclick="showPage('experience')">
+          <i class="fa fa-briefcase"></i><span>Pengalaman</span>
+        </button>
+        <button class="menu-item" onclick="showPage('settings')">
+          <i class="fa fa-gear"></i><span>Pengaturan</span>
+        </button>
+      </div>
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="doLogout()">
+          <i class="fa fa-sign-out"></i><span>Logout</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════════════════════════ -->
+    <main id="main">
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div>
+            <h1>Dashboard</h1>
+            <p>Selamat datang kembali, <span id="welcome-name">Admin</span></p>
+          </div>
+          <a
+            href="index.html"
+            target="_blank"
+            style="
+              color: var(--primary);
+              text-decoration: none;
+              font-size: 0.85rem;
+              display: flex;
+              align-items: center;
+              gap: 6px;
+            "
+          >
+            <i class="fa fa-eye"></i> Lihat Web
+          </a>
+        </div>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="label">Total Projects</div>
+            <div class="value" id="dash-projects">—</div>
+            <div class="sub">Portfolio items</div>
+          </div>
+          <div class="stat-box">
+            <div class="label">Sertifikasi</div>
+            <div class="value" id="dash-certs">—</div>
+            <div class="sub">Aktif</div>
+          </div>
+          <div class="stat-box">
+            <div class="label">Pengalaman</div>
+            <div class="value" id="dash-exp">—</div>
+            <div class="sub">Tercatat</div>
+          </div>
+        </div>
+
+        <!-- Recent Items Table -->
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h3>Item Portfolio Terbaru</h3>
+            <button
+              class="btn-add"
+              onclick="
+                showPage('portfolio');
+                openModal();
+              "
+            >
+              <i class="fa fa-plus"></i> Tambah Item
+            </button>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Judul</th>
+                  <th>Kategori</th>
+                  <th>Tanggal</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="recent-items-body">
+                <tr>
+                  <td colspan="4" class="empty-table">
+                    <div class="spinner"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PORTFOLIO PAGE -->
+      <div class="page" id="page-portfolio">
+        <div class="page-header">
+          <div>
+            <h1>Portfolio Items</h1>
+            <p>Kelola project portofolio kamu</p>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h3>Semua Items</h3>
+            <div class="table-actions">
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Cari item..."
+                oninput="searchItems(this.value)"
+              />
+              <button class="btn-add" onclick="openModal()">
+                <i class="fa fa-plus"></i> Tambah
+              </button>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Judul</th>
+                  <th>Kategori</th>
+                  <th>Tags</th>
+                  <th>Tanggal</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="portfolio-body">
+                <tr>
+                  <td colspan="5" class="empty-table">
+                    <div class="spinner"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERTIFICATES PAGE -->
+      <div class="page" id="page-certificates">
+        <div class="page-header">
+          <div>
+            <h1>Sertifikasi</h1>
+            <p>Kelola sertifikasi profesional kamu</p>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h3>Daftar Sertifikasi</h3>
+            <button class="btn-add" onclick="openModal('cert')">
+              <i class="fa fa-plus"></i> Tambah Sertifikasi
+            </button>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nama Sertifikat</th>
+                  <th>Detail / Tags</th>
+                  <th>Tanggal</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="certs-body">
+                <tr>
+                  <td colspan="4" class="empty-table">
+                    <div class="spinner"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE PAGE -->
+      <div class="page" id="page-experience">
+        <div class="page-header">
+          <div>
+            <h1>Pengalaman Kerja</h1>
+            <p>
+              Kelola riwayat pekerjaan dan pengalamanmu (Tabel "experiences")
+            </p>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h3>Daftar Pengalaman</h3>
+            <button class="btn-add" onclick="openExpModal()">
+              <i class="fa fa-plus"></i> Tambah Pengalaman
+            </button>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tahun</th>
+                  <th>Role / Jabatan</th>
+                  <th>Perusahaan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="exp-body">
+                <tr>
+                  <td colspan="4" class="empty-table">
+                    <div class="spinner"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS PAGE -->
+      <div class="page" id="page-settings">
+        <div class="page-header">
+          <div>
+            <h1>Pengaturan</h1>
+            <p>Konfigurasi profil publik kamu</p>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>
+            <i
+              class="fa fa-user"
+              style="margin-right: 8px; color: var(--primary)"
+            ></i
+            >Profil Publik
+          </h3>
+          <div class="settings-grid">
+            <div class="form-group">
+              <label>Nama</label>
+              <input
+                type="text"
+                id="s-name"
+                value="Sanemidev"
+                placeholder="Nama lengkap"
+              />
+            </div>
+            <div class="form-group">
+              <label>Tagline</label>
+              <input
+                type="text"
+                id="s-tagline"
+                value="Network & Systems Engineer"
+                placeholder="Tagline"
+              />
+            </div>
+            <div class="form-group">
+              <label>Tahun Pengalaman (Exp Years)</label>
+              <input
+                type="text"
+                id="s-exp"
+                value="03+"
+                placeholder="Contoh: 03+"
+              />
+              <small style="color: var(--text-dim); font-size: 0.75rem"
+                >*Statistik project dan sertifikasi otomatis terhitung.</small
+              >
+            </div>
+          </div>
+          <button
+            class="btn-save"
+            onclick="saveSettings()"
+            style="margin-top: 8px"
+          >
+            Simpan Perubahan
+          </button>
+        </div>
+
+        <div class="settings-section">
+          <h3>
+            <i
+              class="fa fa-key"
+              style="margin-right: 8px; color: var(--primary)"
+            ></i
+            >Ganti Password Admin
+          </h3>
+          <div style="max-width: 400px">
+            <div class="form-group">
+              <label>Password Baru</label
+              ><input
+                type="password"
+                id="s-newpass"
+                placeholder="Min. 8 karakter"
+              />
+            </div>
+            <div class="form-group">
+              <label>Konfirmasi Password</label
+              ><input
+                type="password"
+                id="s-confpass"
+                placeholder="Ulangi password baru"
+              />
+            </div>
+            <button class="btn-save" onclick="changePassword()">
+              Update Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════
+     MODAL — ADD / EDIT PORTFOLIO ITEM
+════════════════════════════════════════════════════════════ -->
+    <div
+      class="modal-overlay"
+      id="modal-overlay"
+      onclick="closeModalOutside(event)"
+    >
+      <div class="modal">
+        <h2 id="modal-title">Tambah Portfolio Item</h2>
+        <input type="hidden" id="edit-id" />
+
+        <div class="form-group">
+          <label>Judul *</label>
+          <input
+            type="text"
+            id="f-title"
+            placeholder="Nama project / sertifikat"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Kategori *</label>
+          <select id="f-category">
+            <option value="project">Project</option>
+            <option value="cert">Sertifikasi</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Tags Teknologi (Pisahkan dengan koma)</label>
+          <input
+            type="text"
+            id="f-meta"
+            placeholder="Contoh: HTML/CSS, JS, Tailwind"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Deskripsi *</label>
+          <textarea
+            id="f-desc"
+            rows="3"
+            placeholder="Deskripsi singkat..."
+          ></textarea>
+        </div>
+
+        <div class="form-group" id="img-group">
+          <label>Gambar Cover (Untuk Project)</label>
+          <div
+            class="upload-zone"
+            onclick="document.getElementById('img-file').click()"
+          >
+            <i
+              class="fa fa-image"
+              style="
+                font-size: 1.5rem;
+                color: var(--primary);
+                margin-bottom: 8px;
+              "
+            ></i>
+            <p>Klik atau drag gambar ke sini</p>
+            <span>PNG, JPG, WebP — max 2MB</span>
+          </div>
+          <input
+            type="file"
+            id="img-file"
+            accept="image/*"
+            style="display: none"
+            onchange="handleImageUpload(this)"
+          />
+          <div class="upload-progress-bar" id="upload-bar">
+            <div class="upload-progress-fill" id="upload-fill"></div>
+          </div>
+          <img id="img-preview" class="img-preview" alt="Preview" />
+          <input type="hidden" id="f-image-url" />
+        </div>
+
+        <div class="form-group">
+          <label>Live Demo / Link PDF Sertifikat</label>
+          <input type="text" id="f-link1" placeholder="https://..." />
+        </div>
+        <div class="form-group">
+          <label>Source Code URL (GitHub)</label>
+          <input
+            type="text"
+            id="f-link2"
+            placeholder="https://github.com/..."
+          />
+        </div>
+
+        <div class="modal-btns">
+          <button class="btn-cancel" onclick="closeModal()">Batal</button>
+          <button class="btn-save" onclick="saveItem()">
+            <span id="save-btn-text">Simpan</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+     MODAL — ADD / EDIT EXPERIENCE
+════════════════════════════════════════════════════════════ -->
+    <div
+      class="modal-overlay"
+      id="modal-exp-overlay"
+      onclick="closeExpModalOutside(event)"
+    >
+      <div class="modal">
+        <h2 id="modal-exp-title">Tambah Pengalaman</h2>
+        <input type="hidden" id="edit-exp-id" />
+
+        <div class="form-group">
+          <label>Tahun *</label>
+          <input
+            type="text"
+            id="f-exp-year"
+            placeholder="Contoh: 2023 - Sekarang"
+          />
+        </div>
+        <div class="form-group">
+          <label>Role / Jabatan *</label>
+          <input
+            type="text"
+            id="f-exp-role"
+            placeholder="Contoh: Network Engineer"
+          />
+        </div>
+        <div class="form-group">
+          <label>Perusahaan *</label>
+          <input
+            type="text"
+            id="f-exp-company"
+            placeholder="Contoh: Tech Solution"
+          />
+        </div>
+        <div class="form-group">
+          <label>Deskripsi Singkat *</label>
+          <textarea
+            id="f-exp-desc"
+            rows="3"
+            placeholder="Jelaskan secara singkat tanggung jawab kamu..."
+          ></textarea>
+        </div>
+
+        <div class="modal-btns">
+          <button class="btn-cancel" onclick="closeExpModal()">Batal</button>
+          <button class="btn-save" onclick="saveExp()">
+            <span id="save-exp-btn-text">Simpan</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      // ────────────────────────────────────────────────────────────
+      //  KREDENSIAL SUPABASE
+      // ────────────────────────────────────────────────────────────
+      const SUPABASE_URL = "https://sfsgazpkzlrgrpnnmceo.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmc2dhenBremxyZ3Jwbm5tY2VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMDk0NTMsImV4cCI6MjA5MjU4NTQ1M30.CIA1UioICkHTNKOiFrHN5oNOMTgrm5f0e2TUXB7Da50";
+
+      // ────────────────────────────────────────────────────────────
+      //  SUPABASE INIT
+      // ────────────────────────────────────────────────────────────
+      const { createClient } = supabase;
+      const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      let allItems = [];
+      let allExperiences = [];
+
+      // ────────────────────────────────────────────────────────────
+      //  AUTH
+      // ────────────────────────────────────────────────────────────
+      async function checkAuth() {
+        const {
+          data: { session },
+        } = await sb.auth.getSession();
+        if (session) {
+          showDashboard(session.user);
+        }
+      }
+
+      async function doLogin() {
+        const email = document.getElementById("login-email").value.trim();
+        const pass = document.getElementById("login-pass").value;
+        const btnTxt = document.getElementById("login-btn-text");
+        const errEl = document.getElementById("login-error");
+        errEl.style.display = "none";
+        btnTxt.textContent = "Masuk...";
+
+        const { data, error } = await sb.auth.signInWithPassword({
+          email,
+          password: pass,
+        });
+        if (error) {
+          errEl.style.display = "block";
+          errEl.textContent = error.message;
+          btnTxt.textContent = "Masuk ke Dashboard";
+          return;
+        }
+        showDashboard(data.user);
+      }
+
+      function showDashboard(user) {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("user-name").textContent =
+          user.email.split("@")[0];
+        document.getElementById("welcome-name").textContent =
+          user.email.split("@")[0];
+        loadDashboardStats();
+        loadPortfolioItems();
+      }
+
+      async function doLogout() {
+        await sb.auth.signOut();
+        location.reload();
+      }
+
+      // Enter key login
+      document.getElementById("login-pass").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") doLogin();
+      });
+
+      // ────────────────────────────────────────────────────────────
+      //  NAVIGATION
+      // ────────────────────────────────────────────────────────────
+      function showPage(name) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".menu-item")
+          .forEach((m) => m.classList.remove("active"));
+        document.getElementById("page-" + name).classList.add("active");
+
+        const menuMap = {
+          dashboard: 0,
+          portfolio: 1,
+          certificates: 2,
+          experience: 3,
+          settings: 4,
+        };
+        const items = document.querySelectorAll(".menu-item");
+        if (items[menuMap[name]]) items[menuMap[name]].classList.add("active");
+
+        if (name === "certificates") loadCertItems();
+        if (name === "experience") loadExperiencesAdmin();
+        if (name === "settings") loadSettings();
+      }
+
+      // ────────────────────────────────────────────────────────────
+      //  DASHBOARD STATS
+      // ────────────────────────────────────────────────────────────
+      async function loadDashboardStats() {
+        try {
+          const [{ count: projects }, { count: certs }, { count: exps }] =
+            await Promise.all([
+              sb
+                .from("portfolio_items")
+                .select("*", { count: "exact", head: true })
+                .eq("category", "project"),
+              sb
+                .from("portfolio_items")
+                .select("*", { count: "exact", head: true })
+                .eq("category", "cert"),
+              sb
+                .from("experiences")
+                .select("*", { count: "exact", head: true }),
+            ]);
+          document.getElementById("dash-projects").textContent = projects ?? 0;
+          document.getElementById("dash-certs").textContent = certs ?? 0;
+          document.getElementById("dash-exp").textContent = exps ?? 0;
+
+          // Recent items for dashboard table
+          const { data } = await sb
+            .from("portfolio_items")
+            .select("*")
+            .order("created_at", { ascending: false })
+            .limit(5);
+          renderRecentTable(data || []);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function renderRecentTable(items) {
+        const body = document.getElementById("recent-items-body");
+        if (!items.length) {
+          body.innerHTML = `<tr><td colspan="4" class="empty-table">Belum ada item. Tambahkan dari menu Portfolio.</td></tr>`;
+          return;
+        }
+        body.innerHTML = items
+          .map(
+            (item) => `
+        <tr>
+            <td><strong>${item.title}</strong></td>
+            <td><span class="badge badge-${item.category}">${item.category}</span></td>
+            <td style="color:var(--text-dim); font-size:0.82rem">${new Date(item.created_at).toLocaleDateString("id-ID")}</td>
+            <td><div class="td-actions">
+                <button class="btn-icon edit" onclick="openModal(); editItem('${item.id}')"><i class="fa fa-pen"></i></button>
+                <button class="btn-icon delete" onclick="deleteItem('${item.id}')"><i class="fa fa-trash"></i></button>
+            </div></td>
+        </tr>`,
+          )
+          .join("");
+      }
+
+      // ────────────────────────────────────────────────────────────
+      //  PORTFOLIO CRUD
+      // ────────────────────────────────────────────────────────────
+      async function loadPortfolioItems() {
+        try {
+          const { data, error } = await sb
+            .from("portfolio_items")
+            .select("*")
+            .order("created_at", { ascending: false });
+          if (error) throw error;
+          allItems = data || [];
+          renderPortfolioTable(
+            allItems.filter((i) => i.category === "project"),
+          );
+        } catch (e) {
+          document.getElementById("portfolio-body").innerHTML =
+            `<tr><td colspan="5" class="empty-table" style="color:var(--danger)">Error: ${e.message}</td></tr>`;
+        }
+      }
+
+      function renderPortfolioTable(items) {
+        const body = document.getElementById("portfolio-body");
+        if (!items.length) {
+          body.innerHTML = `<tr><td colspan="5" class="empty-table">Belum ada item portfolio. Klik "Tambah" untuk mulai.</td></tr>`;
+          return;
+        }
+        body.innerHTML = items
+          .map((item) => {
+            const tags = item.meta
+              ? item.meta
+                  .split(",")
+                  .map(
+                    (t) =>
+                      `<span class="badge" style="background:rgba(255,255,255,0.1); color:var(--text-dim); margin-right:4px;">${t.trim()}</span>`,
+                  )
+                  .join("")
+              : "-";
+            return `
+        <tr>
+            <td><strong>${item.title}</strong><div style="color:var(--text-dim);font-size:0.78rem;margin-top:2px">${(item.description || "").substring(0, 60)}...</div></td>
+            <td><span class="badge badge-${item.category}">${item.category}</span></td>
+            <td>${tags}</td>
+            <td style="color:var(--text-dim);font-size:0.82rem">${new Date(item.created_at).toLocaleDateString("id-ID")}</td>
+            <td><div class="td-actions">
+                <button class="btn-icon edit" onclick="editItem('${item.id}')"><i class="fa fa-pen"></i> Edit</button>
+                <button class="btn-icon delete" onclick="deleteItem('${item.id}')"><i class="fa fa-trash"></i></button>
+            </div></td>
+        </tr>`;
+          })
+          .join("");
+      }
+
+      function searchItems(q) {
+        const filtered = allItems.filter(
+          (i) =>
+            i.category === "project" &&
+            (i.title.toLowerCase().includes(q.toLowerCase()) ||
+              (i.description || "").toLowerCase().includes(q.toLowerCase())),
+        );
+        renderPortfolioTable(filtered);
+      }
+
+      // ────────────────────────────────────────────────────────────
+      //  CERTIFICATES
+      // ────────────────────────────────────────────────────────────
+      async function loadCertItems() {
+        const body = document.getElementById("certs-body");
+        try {
+          const data = allItems.filter((i) => i.category === "cert");
+          if (!data || !data.length) {
+            body.innerHTML = `<tr><td colspan="4" class="empty-table">Belum ada sertifikasi.</td></tr>`;
+            return;
+          }
+          body.innerHTML = data
+            .map((item) => {
+              const tags = item.meta
+                ? item.meta
+                    .split(",")
+                    .map(
+                      (t) =>
+                        `<span class="badge" style="background:rgba(255,255,255,0.1); color:var(--text-dim); margin-right:4px;">${t.trim()}</span>`,
+                    )
+                    .join("")
+                : "-";
+              return `<tr>
+                <td><strong>${item.title}</strong></td>
+                <td>${tags}</td>
+                <td style="color:var(--text-dim);font-size:0.82rem">${new Date(item.created_at).toLocaleDateString("id-ID")}</td>
+                <td><div class="td-actions">
+                    <button class="btn-icon edit" onclick="editItem('${item.id}')"><i class="fa fa-pen"></i> Edit</button>
+                    <button class="btn-icon delete" onclick="deleteItem('${item.id}')"><i class="fa fa-trash"></i></button>
+                </div></td>
+            </tr>`;
+            })
+            .join("");
+        } catch (e) {
+          body.innerHTML = `<tr><td colspan="4" class="empty-table" style="color:var(--danger)">${e.message}</td></tr>`;
+        }
+      }
+
+      // ────────────────────────────────────────────────────────────
+      //  EXPERIENCE CRUD
+      // ────────────────────────────────────────────────────────────
+      async function loadExperiencesAdmin() {
+        const body = document.getElementById("exp-body");
+        try {
+          const { data, error } = await sb
+            .from("experiences")
+            .select("*")
+            .order("created_at", { ascending: false });
+          if (error) throw error;
+          allExperiences = data || [];
+
+          if (!data || !data.length) {
+            body.innerHTML = `<tr><td colspan="4" class="empty-table">Belum ada pengalaman. Pastikan kamu sudah buat tabel 'experiences'.</td></tr>`;
+            return;
+          }
+          body.innerHTML = data
+            .map(
+              (exp) => `
+            <tr>
+                <td style="color:var(--primary);font-weight:600;">${exp.year_range}</td>
+                <td><strong>${exp.role}</strong></td>
+                <td style="color:var(--text-dim);">${exp.company}</td>
+                <td><div class="td-actions">
+                    <button class="btn-icon edit" onclick="editExp('${exp.id}')"><i class="fa fa-pen"></i> Edit</button>
+                    <button class="btn-icon delete" onclick="deleteExp('${exp.id}')"><i class="fa fa-trash"></i></button>
+                </div></td>
+            </tr>`,
+            )
+            .join("");
+        } catch (e) {
+          body.innerHTML = `<tr><td colspan="4" class="empty-table" style="color:var(--danger)">Tabel 'experiences' belum ada atau error. Buat dulu di Supabase.</td></tr>`;
+        }
+      }
+
+      // ────────────────────────────────────────────────────────────
+      //  PORTFOLIO MODAL
+      // ────────────────────────────────────────────────────────────
+      function openModal(defaultCategory = "project") {
+        document.getElementById("modal-title").textContent =
+          "Tambah Portfolio Item";
+        document.getElementById("edit-id").value = "";
+        document.getElementById("f-title").value = "";
+        document.getElementById("f-category").value = defaultCategory;
+        document.getElementById("f-meta").value = "";
+        document.getElementById("f-desc").value = "";
+        document.getElementById("f-link1").value = "";
+        document.getElementById("f-link2").value = "";
+        document.getElementById("f-image-url").value = "";
+        document.getElementById("img-preview").style.display = "none";
+        document.getElementById("save-btn-text").textContent = "Simpan";
+        document.getElementById("modal-overlay").classList.add("open");
+      }
+
+      function closeModal() {
+        document.getElementById("modal-overlay").classList.remove("open");
+      }
+      function closeModalOutside(e) {
+        if (e.target === document.getElementById("modal-overlay")) closeModal();
+      }
+
+      function editItem(id) {
+        const item = allItems.find((i) => i.id == id) || null;
+        if (!item) return;
+        document.getElementById("modal-title").textContent = "Edit Item";
+        document.getElementById("edit-id").value = item.id;
+        document.getElementById("f-title").value = item.title || "";
+        document.getElementById("f-category").value =
+          item.category || "project";
+        document.getElementById("f-meta").value = item.meta || "";
+        document.getElementById("f-desc").value = item.description || "";
+        document.getElementById("f-link1").value = item.link_primary || "";
+        document.getElementById("f-link2").value = item.link_secondary || "";
+        document.getElementById("f-image-url").value = item.image_url || "";
+        if (item.image_url) {
+          const prev = document.getElementById("img-preview");
+          prev.src = item.image_url;
+          prev.style.display = "block";
+        } else {
+          document.getElementById("img-preview").style.display = "none";
+        }
+        document.getElementById("save-btn-text").textContent = "Update";
+        document.getElementById("modal-overlay").classList.add("open");
+      }
+
+      async function saveItem() {
+        const id = document.getElementById("edit-id").value;
+        const title = document.getElementById("f-title").value.trim();
+        const desc = document.getElementById("f-desc").value.trim();
+        if (!title || !desc) {
+          Swal.fire({
+            title: "Form Tidak Lengkap",
+            text: "Judul dan deskripsi wajib diisi.",
+            icon: "warning",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+          return;
+        }
+
+        const payload = {
+          title,
+          category: document.getElementById("f-category").value,
+          meta: document.getElementById("f-meta").value.trim(),
+          description: desc,
+          link_primary: document.getElementById("f-link1").value.trim() || null,
+          link_secondary:
+            document.getElementById("f-link2").value.trim() || null,
+          image_url: document.getElementById("f-image-url").value || null,
+        };
+
+        document.getElementById("save-btn-text").textContent = "Menyimpan...";
+
+        let error;
+        if (id) {
+          ({ error } = await sb
+            .from("portfolio_items")
+            .update(payload)
+            .eq("id", id));
+        } else {
+          ({ error } = await sb.from("portfolio_items").insert([payload]));
+        }
+
+        if (error) {
+          Swal.fire({
+            title: "Error!",
+            text: error.message,
+            icon: "error",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+          document.getElementById("save-btn-text").textContent = "Simpan";
+          return;
+        }
+
+        closeModal();
+        Swal.fire({
+          title: "Berhasil!",
+          text: id ? "Item diupdate." : "Item ditambahkan.",
+          icon: "success",
+          background: "#0f0f1a",
+          color: "#fff",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        await loadPortfolioItems();
+        if (payload.category === "cert") loadCertItems();
+        loadDashboardStats();
+      }
+
+      async function deleteItem(id) {
+        const result = await Swal.fire({
+          title: "Hapus item ini?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#ff4757",
+          cancelButtonText: "Batal",
+          confirmButtonText: "Hapus",
+          background: "#0f0f1a",
+          color: "#fff",
+        });
+        if (!result.isConfirmed) return;
+        const { error } = await sb
+          .from("portfolio_items")
+          .delete()
+          .eq("id", id);
+        if (!error) {
+          Swal.fire({
+            title: "Terhapus!",
+            icon: "success",
+            background: "#0f0f1a",
+            color: "#fff",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+          loadPortfolioItems();
+          loadCertItems();
+          loadDashboardStats();
+        }
+      }
+
+      // ────────────────────────────────────────────────────────────
+      //  EXPERIENCE MODAL
+      // ────────────────────────────────────────────────────────────
+      function openExpModal() {
+        document.getElementById("modal-exp-title").textContent =
+          "Tambah Pengalaman";
+        document.getElementById("edit-exp-id").value = "";
+        document.getElementById("f-exp-year").value = "";
+        document.getElementById("f-exp-role").value = "";
+        document.getElementById("f-exp-company").value = "";
+        document.getElementById("f-exp-desc").value = "";
+        document.getElementById("save-exp-btn-text").textContent = "Simpan";
+        document.getElementById("modal-exp-overlay").classList.add("open");
+      }
+
+      function closeExpModal() {
+        document.getElementById("modal-exp-overlay").classList.remove("open");
+      }
+      function closeExpModalOutside(e) {
+        if (e.target === document.getElementById("modal-exp-overlay"))
+          closeExpModal();
+      }
+
+      function editExp(id) {
+        const exp = allExperiences.find((i) => i.id == id);
+        if (!exp) return;
+        document.getElementById("modal-exp-title").textContent =
+          "Edit Pengalaman";
+        document.getElementById("edit-exp-id").value = exp.id;
+        document.getElementById("f-exp-year").value = exp.year_range || "";
+        document.getElementById("f-exp-role").value = exp.role || "";
+        document.getElementById("f-exp-company").value = exp.company || "";
+        document.getElementById("f-exp-desc").value = exp.description || "";
+        document.getElementById("save-exp-btn-text").textContent = "Update";
+        document.getElementById("modal-exp-overlay").classList.add("open");
+      }
+
+      async function saveExp() {
+        const id = document.getElementById("edit-exp-id").value;
+        const year_range = document.getElementById("f-exp-year").value.trim();
+        const role = document.getElementById("f-exp-role").value.trim();
+        const company = document.getElementById("f-exp-company").value.trim();
+        const description = document.getElementById("f-exp-desc").value.trim();
+
+        if (!year_range || !role || !company) {
+          Swal.fire({
+            title: "Tolong isi datanya sayang",
+            text: "Tahun, Role, dan Perusahaan nggak boleh kosong ya.",
+            icon: "warning",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+          return;
+        }
+
+        const payload = { year_range, role, company, description };
+        document.getElementById("save-exp-btn-text").textContent =
+          "Menyimpan...";
+
+        let error;
+        if (id) {
+          ({ error } = await sb
+            .from("experiences")
+            .update(payload)
+            .eq("id", id));
+        } else {
+          ({ error } = await sb.from("experiences").insert([payload]));
+        }
+
+        if (error) {
+          Swal.fire({
+            title: "Yah Error",
+            text: error.message,
+            icon: "error",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+          document.getElementById("save-exp-btn-text").textContent = "Simpan";
+          return;
+        }
+
+        closeExpModal();
+        Swal.fire({
+          title: "Aman!",
+          text: "Pengalaman berhasil disimpan.",
+          icon: "success",
+          background: "#0f0f1a",
+          color: "#fff",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        loadExperiencesAdmin();
+        loadDashboardStats();
+      }
+
+      async function deleteExp(id) {
+        const result = await Swal.fire({
+          title: "Hapus riwayat ini?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#ff4757",
+          cancelButtonText: "Batal",
+          confirmButtonText: "Hapus",
+          background: "#0f0f1a",
+          color: "#fff",
+        });
+        if (!result.isConfirmed) return;
+        const { error } = await sb.from("experiences").delete().eq("id", id);
+        if (!error) {
+          Swal.fire({
+            title: "Dihapus!",
+            icon: "success",
+            background: "#0f0f1a",
+            color: "#fff",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+          loadExperiencesAdmin();
+          loadDashboardStats();
+        }
+      }
+
+      // ────────────────────────────────────────────────────────────
+      //  IMAGE UPLOAD TO SUPABASE STORAGE
+      // ────────────────────────────────────────────────────────────
+      async function handleImageUpload(input) {
+        const file = input.files[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) {
+          Swal.fire({
+            title: "File terlalu besar",
+            text: "Maksimum 2MB.",
+            icon: "warning",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+          return;
+        }
+
+        const bar = document.getElementById("upload-bar");
+        const fill = document.getElementById("upload-fill");
+        bar.style.display = "block";
+        fill.style.width = "30%";
+
+        const ext = file.name.split(".").pop();
+        const fileName = `portfolio/${Date.now()}.${ext}`;
+
+        const { data, error } = await sb.storage
+          .from("images")
+          .upload(fileName, file, { upsert: true });
+        fill.style.width = "100%";
+
+        if (error) {
+          Swal.fire({
+            title: "Upload Gagal",
+            text: error.message,
+            icon: "error",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+          bar.style.display = "none";
+          return;
+        }
+
+        const { data: urlData } = sb.storage
+          .from("images")
+          .getPublicUrl(fileName);
+        document.getElementById("f-image-url").value = urlData.publicUrl;
+        const prev = document.getElementById("img-preview");
+        prev.src = urlData.publicUrl;
+        prev.style.display = "block";
+
+        setTimeout(() => {
+          bar.style.display = "none";
+          fill.style.width = "0%";
+        }, 500);
+      }
+
+      // ────────────────────────────────────────────────────────────
+      //  SETTINGS
+      // ────────────────────────────────────────────────────────────
+      async function loadSettings() {
+        try {
+          const { data } = await sb.from("site_settings").select("*").single();
+          if (data) {
+            document.getElementById("s-name").value = data.name || "Sanemidev";
+            document.getElementById("s-tagline").value = data.tagline || "";
+            document.getElementById("s-exp").value =
+              data.stat_experience || "03+";
+          }
+        } catch (e) {}
+      }
+
+      async function saveSettings() {
+        const payload = {
+          name: document.getElementById("s-name").value,
+          tagline: document.getElementById("s-tagline").value,
+          stat_experience: document.getElementById("s-exp").value,
+        };
+        const { error } = await sb
+          .from("site_settings")
+          .upsert([{ id: 1, ...payload }]);
+        if (!error)
+          Swal.fire({
+            title: "Tersimpan!",
+            icon: "success",
+            background: "#0f0f1a",
+            color: "#fff",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        else
+          Swal.fire({
+            title: "Error",
+            text: error.message,
+            icon: "error",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+      }
+
+      async function changePassword() {
+        const np = document.getElementById("s-newpass").value;
+        const cp = document.getElementById("s-confpass").value;
+        if (np.length < 8) {
+          Swal.fire({
+            title: "Password terlalu pendek",
+            text: "Minimal 8 karakter.",
+            icon: "warning",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+          return;
+        }
+        if (np !== cp) {
+          Swal.fire({
+            title: "Password nggak cocok!",
+            icon: "error",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+          return;
+        }
+        const { error } = await sb.auth.updateUser({ password: np });
+        if (!error)
+          Swal.fire({
+            title: "Password diupdate!",
+            icon: "success",
+            background: "#0f0f1a",
+            color: "#fff",
+            timer: 1800,
+            showConfirmButton: false,
+          });
+        else
+          Swal.fire({
+            title: "Error",
+            text: error.message,
+            icon: "error",
+            background: "#0f0f1a",
+            color: "#fff",
+          });
+      }
+
+      // Init
+      checkAuth();
+    </script>
+  </body>
+</html>
