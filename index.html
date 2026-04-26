@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanemidev | Portofolio Fachri Ahmad Maulana</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Space+Mono&display=swap" rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css?v=1.0.2">
+  </head>
+  <body>
+    <!-- Navbar (Dipindah ke luar container supaya full 100% width) -->
+    <nav class="sticky-nav">
+      <div class="logo">F<span>achri Ahmad Maulana.</span></div>
+
+      <div class="nav-right">
+        <div class="nav-links" id="nav-links">
+          <a href="#">Home</a>
+          <a href="#about">Tentang</a>
+          <a href="#skills">Keahlian</a>
+          <a href="#services">Layanan</a>
+          <a href="#pengalaman">Pengalaman</a>
+          <a href="#portfolio">Portofolio</a>
+          <a href="#contact">Kontak</a>
+        </div>
+
+        <div class="nav-controls">
+          <!-- Tombol Ubah Tema -->
+          <button id="theme-toggle" class="theme-btn" title="Ubah Tema">
+            <i class="fa-solid fa-sun"></i>
+          </button>
+          <!-- Tombol Hamburger -->
+          <button id="hamburger-menu" class="hamburger-btn" title="Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Hero Section -->
+      <header class="hero" id="home">
+        <div class="hero-content">
+          <p class="hero-tagline">NETWORK & SYSTEMS ENGINEER</p>
+          <h1>Secure & <span>Reliable</span> Infrastructure</h1>
+          <p class="hero-desc">
+            Merancang infrastruktur jaringan yang aman, skalabel, dan efisien
+            untuk performa sistem tingkat tinggi.
+          </p>
+          <div class="hero-btns">
+            <a href="#contact" class="btn-primary">Bicara</a>
+            <a
+              href="./cv/CV_Fachri_Ahmad_Maulana.pdf"
+              download
+              class="btn-secondary"
+              >Download CV</a
+            >
+          </div>
+        </div>
+      </header>
+
+      <!-- Headline About -->
+      <div class="section-headline" id="about">
+        <span class="meta-info">#WHO_I_AM</span>
+        <h2>Tentang Saya</h2>
+      </div>
+
+      <section class="about-section">
+        <div class="about-grid">
+          <div class="photo-wrapper">
+            <img
+              src="./img/Fachri.png"
+              alt="Sanemidev Photo"
+              onerror="
+                this.src = 'https://via.placeholder.com/400x400?text=Sanemidev'
+              "
+            />
+          </div>
+          <div class="about-content">
+            <p>
+              Halo! Saya seorang <strong>Network Engineer</strong> yang
+              berdedikasi untuk merancang dan mengelola infrastruktur IT yang
+              aman dan efisien.
+            </p>
+            <p>
+              Saya percaya bahwa jaringan yang kuat adalah fondasi dari setiap
+              ekosistem digital. Dengan kombinasi pemahaman perangkat keras dan
+              skrip otomatisasi, saya membantu bisnis tetap terkoneksi 24/7
+              tanpa hambatan.
+            </p>
+
+            <!-- Statistik Otomatis dari Supabase -->
+            <div class="stats-mini">
+              <div class="stat-item">
+                <h3 id="stat-projects">0+</h3>
+                <p>Project</p>
+              </div>
+              <div class="stat-item">
+                <h3 id="stat-certs">0+</h3>
+                <p>Sertifikat</p>
+              </div>
+              <div class="stat-item">
+                <h3 id="stat-exp">0+</h3>
+                <p>Tahun Pengalaman Kerja</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Headline Keahlian -->
+      <div class="section-headline" id="skills">
+        <span class="meta-info">#MY_STACK</span>
+        <h2>Keahlian</h2>
+      </div>
+
+      <section class="skills-section">
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3><i class="fa-solid fa-network-wired"></i> Networking</h3>
+            <div class="skill-tags">
+              <span>MikroTik (MTCNA)</span>
+              <span>Cisco (CCNA)</span>
+              <span>VPN IPsec/Wireguard</span>
+              <span>VLAN & Trunking</span>
+              <span>Routing OSPF/BGP</span>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3><i class="fa-solid fa-server"></i> Server & Cloud</h3>
+            <div class="skill-tags">
+              <span>Linux Admin</span>
+              <span>Docker Container</span>
+              <span>Proxmox Virtualization</span>
+              <span>Cloud VPS (Vultr/AWS)</span>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3><i class="fa-solid fa-code"></i> Automation & Dev</h3>
+            <div class="skill-tags">
+              <span>Python Scripting</span>
+              <span>Bash Automation</span>
+              <span>Ansible</span>
+              <span>Git / GitHub</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Headline Layanan -->
+      <div class="section-headline" id="services">
+        <span class="meta-info">#WHAT_I_DO</span>
+        <h2>Layanan</h2>
+      </div>
+
+      <section class="services-section">
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fa-solid fa-diagram-project"></i>
+            </div>
+            <h3>Network Design</h3>
+            <p>
+              Merancang topologi jaringan dari nol dengan standar keamanan
+              enterprise.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Network Security</h3>
+            <p>
+              Implementasi Firewall, VPN, dan hardening sistem untuk mencegah
+              serangan siber.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-wrench"></i></div>
+            <h3>Troubleshooting</h3>
+            <p>
+              Menganalisis dan memperbaiki masalah konektivitas, packet loss,
+              atau latency tinggi.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-robot"></i></div>
+            <h3>Automation</h3>
+            <p>
+              Otomatisasi konfigurasi jaringan skala besar menggunakan script
+              Python atau Ansible.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Headline Pengalaman -->
+      <div class="section-headline" id="pengalaman">
+        <span class="meta-info">#MY_JOURNEY</span>
+        <h2>Pengalaman</h2>
+      </div>
+
+      <section id="experience" class="experience-section">
+        <!-- Div ini bakal diisi data otomatis dari tabel 'experiences' di Supabase -->
+        <div class="timeline" id="experience-timeline">
+          <div class="loading-state" style="padding: 20px 0">
+            <div
+              class="loading-spinner"
+              style="width: 25px; height: 25px; border-width: 2px"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Headline Portfolio -->
+      <div class="section-headline" id="portfolio">
+        <span class="meta-info">#SELECTED_ITEMS</span>
+        <h2>Portofolio</h2>
+      </div>
+
+      <section class="portfolio-section">
+        <div class="filter-tabs">
+          <button class="tab-btn active" data-target="all">All Items</button>
+          <button class="tab-btn" data-target="project">Projects</button>
+          <button class="tab-btn" data-target="cert">Certificates</button>
+        </div>
+
+        <div class="portfolio-grid" id="portfolio-grid">
+          <div class="loading-state" id="portfolio-loading">
+            <div class="loading-spinner"></div>
+            <p>Memuat portfolio...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Box -->
+      <section class="contact-box" id="contact">
+        <div class="contact-info">
+          <h2>Hubungi <span>Saya</span></h2>
+          <p>
+            Butuh konsultasi infrastruktur atau optimasi jaringan? Mari
+            berdiskusi santai untuk cari solusinya.
+          </p>
+          <div class="social-links">
+            <a href="https://github.com/SanemiNeedHelp" target="_blank"
+              ><i class="fa-brands fa-github"></i> GitHub</a
+            >
+            <a href="https://wa.me/6289673381319" target="_blank"
+              ><i class="fa-brands fa-whatsapp"></i> WhatsApp</a
+            >
+            <a href="https://instagram.com/amaddwho" target="_blank"
+              ><i class="fa-brands fa-instagram"></i> Instagram</a
+            >
+            <a
+              href="https://www.linkedin.com/in/fachri-ahmad-maulana-837a50350/"
+              target="_blank"
+              ><i class="fa-brands fa-linkedin"></i> LinkedIn</a
+            >
+          </div>
+        </div>
+
+        <form
+          class="contact-form"
+          id="contactForm"
+          action="https://formspree.io/f/mjgejeoa"
+          method="POST"
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Nama Anda" required />
+            </div>
+            <div class="form-group">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Anda"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" name="subject" placeholder="Subjek " required />
+          </div>
+          <div class="form-group">
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="Tuliskan pesan Anda disini..."
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn-send">
+            Kirim Pesan <i class="fa-regular fa-paper-plane"></i>
+          </button>
+        </form>
+      </section>
+
+      <footer>&copy; 2026 Sanemidev. All rights reserved.</footer>
+    </div>
+
+    <!-- Tombol Ke Atas -->
+    <button id="backToTop" class="back-to-top" title="Kembali ke atas">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
