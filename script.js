@@ -145,24 +145,77 @@ function getStaticCards() {
   return `<div style="grid-column: 1/-1; text-align:center; color:var(--text-dim);">Gagal memuat dari Supabase. Cek koneksi kamu ya.</div>`;
 }
 
-// ─── 4. FILTER TABS ───────────────────────────────────────────
+// ─── 4. FILTER TABS & LIMIT ───────────────────────────────────
+let isShowingAllPortfolio = false;
+
 function initFilter() {
   const tabs = document.querySelectorAll(".tab-btn");
   const items = document.querySelectorAll(".item-card");
+  const viewAllWrapper = document.getElementById("view-all-wrapper");
+  const viewAllBtn = document.getElementById("view-all-btn");
 
+  function updateVisibility() {
+    const activeTab = document.querySelector(".tab-btn.active").getAttribute("data-target");
+    let visibleCount = 0;
+    let totalMatch = 0;
+
+    items.forEach((item) => {
+      const matchCategory = activeTab === "all" || item.getAttribute("data-category") === activeTab;
+
+      if (matchCategory) {
+        totalMatch++;
+        // Sembunyikan item jika sudah lewat batas 2 dan belum klik lihat semua
+        if (!isShowingAllPortfolio && visibleCount >= 2) {
+          item.classList.add("hidden");
+        } else {
+          item.classList.remove("hidden");
+          visibleCount++;
+        }
+      } else {
+        item.classList.add("hidden");
+      }
+    });
+
+    // Tampilkan atau sembunyikan tombol "Lihat Semua" / "Tutup"
+    if (totalMatch > 2) {
+      if (viewAllWrapper) viewAllWrapper.style.display = "block";
+      if (viewAllBtn) {
+        if (isShowingAllPortfolio) {
+          viewAllBtn.innerHTML = 'Tutup Items <i class="fa-solid fa-chevron-up"></i>';
+        } else {
+          viewAllBtn.innerHTML = 'Lihat Semua Items <i class="fa-solid fa-chevron-down"></i>';
+        }
+      }
+    } else {
+      if (viewAllWrapper) viewAllWrapper.style.display = "none";
+    }
+  }
+
+  // Update pertama kali saat load
+  updateVisibility();
+
+  // Event klik pada tab filter
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       tabs.forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
-      const target = tab.getAttribute("data-target");
-      items.forEach((item) => {
-        item.classList.toggle(
-          "hidden",
-          target !== "all" && item.getAttribute("data-category") !== target,
-        );
-      });
+      isShowingAllPortfolio = false; // Reset kembali ke 2 item saat ganti tab
+      updateVisibility();
     });
   });
+
+  // Event klik pada tombol Lihat Semua / Tutup
+  if (viewAllBtn) {
+    viewAllBtn.onclick = () => {
+      isShowingAllPortfolio = !isShowingAllPortfolio; // Toggle state
+      updateVisibility();
+      
+      // Jika ditutup, scroll kembali ke bagian portofolio biar rapi
+      if (!isShowingAllPortfolio) {
+        document.getElementById("portfolio").scrollIntoView({ behavior: "smooth" });
+      }
+    };
+  }
 }
 
 // ─── 5. CONTACT FORM (Formspree) ──────────────────────────────
