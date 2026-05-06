@@ -1,5 +1,5 @@
 // ============================================================
-//  script.js — Portfolio Logic + Supabase Integration
+//  script.js — Portfolio Logic + Supabase Integration + AOS
 // ============================================================
 
 // Init Supabase client
@@ -42,7 +42,6 @@ async function loadExperiences() {
   if (!timeline) return;
 
   try {
-    // Mengubah ascending menjadi true agar urut dari atas ke bawah
     const { data, error } = await sb
       .from("experiences")
       .select("*")
@@ -56,8 +55,8 @@ async function loadExperiences() {
 
     timeline.innerHTML = data
       .map(
-        (exp) => `
-            <div class="timeline-item">
+        (exp, index) => `
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="${(index % 3) * 100}">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <span class="time">${exp.year_range}</span>
@@ -91,11 +90,11 @@ async function loadPortfolio() {
     if (loading) loading.style.display = "none";
 
     if (!data || data.length === 0) {
-      grid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;"><p style="color:var(--text-dim);text-align:center;padding:60px 0;">Belum ada portofolio item.</p></div>`;
+      grid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;" data-aos="fade-in"><p style="color:var(--text-dim);text-align:center;padding:60px 0;">Belum ada portofolio item.</p></div>`;
       return;
     }
 
-    grid.innerHTML = data.map((item) => renderCard(item)).join("");
+    grid.innerHTML = data.map((item, index) => renderCard(item, index)).join("");
     initFilter();
   } catch (err) {
     console.error("Supabase error:", err);
@@ -105,7 +104,7 @@ async function loadPortfolio() {
   }
 }
 
-function renderCard(item) {
+function renderCard(item, index = 0) {
   const isProject = item.category === "project";
   const tagsHTML = item.meta
     ? item.meta
@@ -115,7 +114,7 @@ function renderCard(item) {
     : "";
 
   return `
-    <div class="item-card" data-category="${item.category}">
+    <div class="item-card" data-category="${item.category}" data-aos="fade-up" data-aos-delay="${(index % 2) * 100}">
         ${
           item.image_url
             ? `<div class="card-img" style="background-image: url('${item.image_url}'); background-size: cover; background-position: center;"></div>`
@@ -142,7 +141,7 @@ function renderCard(item) {
 }
 
 function getStaticCards() {
-  return `<div style="grid-column: 1/-1; text-align:center; color:var(--text-dim);">Gagal memuat dari Supabase. Cek koneksi kamu ya.</div>`;
+  return `<div style="grid-column: 1/-1; text-align:center; color:var(--text-dim);" data-aos="fade-in">Gagal memuat dari Supabase. Cek koneksi kamu ya.</div>`;
 }
 
 // ─── 4. FILTER TABS & LIMIT ───────────────────────────────────
@@ -189,6 +188,11 @@ function initFilter() {
     } else {
       if (viewAllWrapper) viewAllWrapper.style.display = "none";
     }
+
+    // Refresh layout AOS ketika filter berjalan agar posisi scroll tetap akurat
+    setTimeout(() => {
+      if (typeof AOS !== 'undefined') AOS.refresh();
+    }, 100);
   }
 
   // Update pertama kali saat load
@@ -346,8 +350,22 @@ if (hamburgerBtn && navLinks) {
 }
 
 // ─── INIT ─────────────────────────────────────────────────────
-document.addEventListener("DOMContentLoaded", () => {
-  loadStats();
-  loadExperiences();
-  loadPortfolio();
+document.addEventListener("DOMContentLoaded", async () => {
+  // Inisialisasi AOS
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      once: true, // Animasi cuma jalan sekali pas elemen discroll
+      duration: 800,
+      offset: 50,
+    });
+  }
+
+  await loadStats();
+  await loadExperiences();
+  await loadPortfolio();
+  
+  // Refresh AOS karena ada elemen baru dari Supabase yang di-render
+  setTimeout(() => {
+    if (typeof AOS !== 'undefined') AOS.refresh();
+  }, 500);
 });

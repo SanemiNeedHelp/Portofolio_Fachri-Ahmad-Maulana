@@ -58,9 +58,7 @@ body {
   font-family: "Plus Jakarta Sans", sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   padding-top: 80px; /* Menambahkan padding supaya konten tidak tertutup fixed navbar */
 }
 
@@ -215,12 +213,14 @@ body {
   border-radius: 50px;
   font-weight: 800;
   text-decoration: none;
-  transition: 0.3s;
   display: inline-block;
   text-align: center;
+  /* !important agar tidak tertimpa animasi AOS */
+  transition: all 0.3s ease !important; 
 }
 .btn-primary:hover {
-  transform: translateY(-3px);
+  /* !important agar hover selalu menang atas transformasi AOS */
+  transform: translateY(-3px) !important;
   box-shadow: 0 10px 20px rgba(0, 91, 181, 0.3);
 }
 
@@ -241,16 +241,16 @@ body {
   border-radius: 50px;
   font-weight: 700;
   cursor: pointer;
-  transition: 0.3s;
   font-size: 0.95rem;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transition: all 0.3s ease !important;
 }
 .btn-outline:hover {
   background: var(--primary);
   color: var(--btn-text);
-  transform: translateY(-3px);
+  transform: translateY(-3px) !important;
   box-shadow: 0 10px 20px rgba(0, 91, 181, 0.2);
 }
 
@@ -315,11 +315,11 @@ body {
   border-radius: 16px;
   padding: 25px 10px;
   text-align: center;
-  transition: 0.3s;
+  transition: all 0.3s ease !important;
 }
 .stat-item:hover {
   border-color: var(--primary);
-  transform: translateY(-5px);
+  transform: translateY(-5px) !important;
   box-shadow: 0 5px 15px rgba(0, 91, 181, 0.05);
 }
 .stat-item h3 {
@@ -350,13 +350,13 @@ body {
   border: 1px solid var(--border);
   padding: 30px;
   border-radius: 24px;
-  transition: 0.3s;
+  transition: all 0.3s ease !important;
 }
 .skill-category:hover,
 .service-card:hover {
   border-color: var(--primary);
   background: var(--surface-hover);
-  transform: translateY(-5px);
+  transform: translateY(-5px) !important;
 }
 .skill-category h3 {
   margin-bottom: 20px;
@@ -475,13 +475,13 @@ body {
   border: 1px solid var(--border);
   border-radius: 24px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
   flex-direction: column;
   min-height: 420px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 .item-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px) !important;
   border-color: var(--primary);
   box-shadow: 0 15px 35px rgba(0, 91, 181, 0.15);
 }
@@ -700,7 +700,7 @@ footer {
   }
 }
 
-/* Tombol Ke Atas (Back to Top) - Digeser ke Kanan Bawah */
+/* Tombol Ke Atas (Back to Top) */
 .back-to-top {
   position: fixed;
   bottom: 30px;
@@ -716,12 +716,13 @@ footer {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
+  transition: all 0.3s ease !important;
   z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Transform default sebelum di-hover */
+  transform: translateY(20px); 
 }
 .back-to-top.show {
   opacity: 1;
@@ -729,7 +730,7 @@ footer {
   transform: translateY(0);
 }
 .back-to-top:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) !important;
   box-shadow: 0 8px 20px rgba(0, 91, 181, 0.4);
 }
 
@@ -753,8 +754,6 @@ footer {
     padding: 40px 30px;
     gap: 30px;
   }
-
-  /* Membuat teks About Me rata tengah di mobile */
   #about.section-headline {
     text-align: center;
   }
@@ -763,9 +762,7 @@ footer {
 @media (max-width: 768px) {
   .nav-right {
     gap: 15px;
-  } /* Jarak dikecilkan saat di mobile */
-
-  /* Hamburger Menu untuk Mobile */
+  } 
   .hamburger-btn {
     display: block;
   }
@@ -791,7 +788,7 @@ footer {
     font-size: 1rem;
     padding: 10px 0;
     width: 100%;
-    text-align: center; /* Diubah jadi center sesuai request sayang */
+    text-align: center;
   }
   .nav-links a:last-child {
     border-bottom: none;
@@ -822,18 +819,16 @@ footer {
     width: 45px;
     height: 45px;
   }
-
-  /* Settingan spesifik GRID tab filter buat mobile aja */
   .filter-tabs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px; /* Dikasih jarak dikit biar muat */
+    gap: 8px;
     width: 100%;
   }
   .tab-btn {
     width: 100%;
     padding: 10px 5px;
-    font-size: 0.8rem; /* Font dikecilin dikit biar Certificates muat rapi */
+    font-size: 0.8rem;
     text-align: center;
     white-space: nowrap;
   }

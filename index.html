@@ -7,17 +7,21 @@
     <link rel="icon" type="image/x-icon" href="./img/logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Space+Mono&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="style.css?v=1.0.4">
+    <link rel="stylesheet" href="style.css?v=1.0.5">
   </head>
   <body>
-    <!-- Navbar (Dipindah ke luar container supaya full 100% width) -->
+    <!-- Navbar -->
     <nav class="sticky-nav">
       <div class="logo">F<span>achri Ahmad Maulana.</span></div>
 
       <div class="nav-right">
         <div class="nav-links" id="nav-links">
-          <a href="#">Home</a>
+          <a href="#">Beranda</a>
           <a href="#about">Tentang</a>
           <a href="#skills">Keahlian</a>
           <a href="#services">Layanan</a>
@@ -42,64 +46,51 @@
     <div class="container">
       <!-- Hero Section -->
       <header class="hero" id="home">
-        <div class="hero-content">
-          <p class="hero-tagline">NETWORK & SYSTEMS ENGINEER</p>
-          <h1>Secure & <span>Reliable</span> Infrastructure</h1>
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+          <p class="hero-tagline">NETWORK ENGINEER & IT INFRASTRUCTURE</p>
+          <h1>Reliable <span>Network</span> & Seamless Operation</h1>
           <p class="hero-desc">
-            Merancang infrastruktur jaringan yang aman, skalabel, dan efisien
-            untuk performa sistem tingkat tinggi.
+            Memastikan setiap aspek dari infrastruktur IT, mulai dari instalasi fisik, optimasi bandwidth, hingga pemeliharaan sistem berjalan optimal guna mendukung produktivitas tingkat tinggi.
           </p>
           <div class="hero-btns">
-            <a href="#contact" class="btn-primary">Bicara</a>
-            <a
-              href="./cv/CV_Fachri_Ahmad_Maulana.pdf"
-              download
-              class="btn-secondary"
-              >Download CV</a
-            >
+            <a href="#contact" class="btn-primary">Let's Connect</a>
+            <a href="./cv/CV_Fachri_Ahmad_Maulana.pdf" download class="btn-secondary">Download CV</a>
           </div>
         </div>
       </header>
 
       <!-- Headline About -->
-      <div class="section-headline" id="about">
+      <div class="section-headline" id="about" data-aos="fade-right">
         <span class="meta-info">#WHO_I_AM</span>
         <h2>Tentang Saya</h2>
       </div>
 
       <section class="about-section">
         <div class="about-grid">
-          <div class="photo-wrapper">
-            <img
-              src="./img/Fachri.png"
-              alt="Sanemidev Photo"/>
+          <div class="photo-wrapper" data-aos="zoom-in" data-aos-duration="800">
+            <img src="./img/Fachri.png" alt="Sanemidev Photo"/>
           </div>
-          <div class="about-content">
+          <div class="about-content" data-aos="fade-left" data-aos-delay="200">
             <p>
-              Halo! Saya seorang <strong>Network Engineer</strong> yang
-              berdedikasi untuk merancang dan mengelola infrastruktur IT yang
-              aman dan efisien.
+              Halo, perkenalkan saya Fachri. Saya merupakan lulusan Teknik Jaringan Komputer dan Telekomunikasi yang telah tersertifikasi MTCNA. Melalui dua periode magang sebelumnya, saya mendapatkan pengalaman praktis secara langsung dalam melakukan instalasi, konfigurasi, hingga pemeliharaan jaringan. Fokus keahlian saya meliputi pengelolaan MikroTik, implementasi routing dan switching, serta troubleshooting perangkat keras.
             </p>
             <p>
-              Saya percaya bahwa jaringan yang kuat adalah fondasi dari setiap
-              ekosistem digital. Dengan kombinasi pemahaman perangkat keras dan
-              skrip otomatisasi, saya membantu bisnis tetap terkoneksi 24/7
-              tanpa hambatan.
+              Saya memahami bahwa infrastruktur IT yang andal adalah kunci dari kelancaran operasional sebuah perusahaan. Oleh karena itu, saya berkomitmen penuh untuk berkontribusi sebagai Network Engineer, dengan tujuan utama memastikan sistem dan jaringan dapat beroperasi secara stabil, aman, dan efisien.
             </p>
 
             <!-- Statistik Otomatis dari Supabase -->
             <div class="stats-mini">
-              <div class="stat-item">
+              <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
                 <h3 id="stat-projects">0+</h3>
                 <p>Project</p>
               </div>
-              <div class="stat-item">
+              <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
                 <h3 id="stat-certs">0+</h3>
                 <p>Sertifikat</p>
               </div>
-              <div class="stat-item">
+              <div class="stat-item" data-aos="fade-up" data-aos-delay="500">
                 <h3 id="stat-exp">0+</h3>
-                <p>Bulan Pengalaman Magang</p>
+                <p>Bulan Pengalaman</p>
               </div>
             </div>
           </div>
@@ -107,93 +98,87 @@
       </section>
 
       <!-- Headline Keahlian -->
-      <div class="section-headline" id="skills">
+      <div class="section-headline" id="skills" data-aos="fade-right">
         <span class="meta-info">#MY_STACK</span>
         <h2>Keahlian</h2>
       </div>
 
       <section class="skills-section">
         <div class="skills-grid">
-          <div class="skill-category">
-            <h3><i class="fa-solid fa-network-wired"></i> Networking</h3>
+          <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
+            <h3><i class="fa-solid fa-network-wired"></i> Networking & Infrastructure</h3>
             <div class="skill-tags">
-              <span>MikroTik (MTCNA)</span>
-              <span>Cisco (CCNA)</span>
-              <span>VPN IPsec/Wireguard</span>
-              <span>VLAN & Trunking</span>
-              <span>Routing OSPF/BGP</span>
+              <span>MikroTik</span>
+              <span>Cisco</span>
+              <span>Bandwidth & Hotspot Management</span>
+              <span>FO & LAN Cabling</span>
             </div>
           </div>
-          <div class="skill-category">
-            <h3><i class="fa-solid fa-server"></i> Server & Cloud</h3>
+          <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+            <h3><i class="fa-solid fa-screwdriver-wrench"></i> IT Support & Troubleshooting</h3>
             <div class="skill-tags">
-              <span>Linux Admin</span>
-              <span>Docker Container</span>
-              <span>Proxmox Virtualization</span>
-              <span>Cloud VPS (Vultr/AWS)</span>
+              <span>Hardware & Laptop Service</span>
+              <span>OS Setup & Virtualization</span>
+              <span>IT Helpdesk</span>
             </div>
           </div>
-          <div class="skill-category">
-            <h3><i class="fa-solid fa-code"></i> Automation & Dev</h3>
+          <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
+            <h3><i class="fa-solid fa-code"></i> Web Development</h3>
             <div class="skill-tags">
-              <span>Python Scripting</span>
-              <span>Bash Automation</span>
-              <span>Ansible</span>
-              <span>Git / GitHub</span>
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JS</span>
+              <span>Tailwind CSS</span>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Headline Layanan -->
-      <div class="section-headline" id="services">
+      <div class="section-headline" id="services" data-aos="fade-right">
         <span class="meta-info">#WHAT_I_DO</span>
         <h2>Layanan</h2>
       </div>
 
       <section class="services-section">
         <div class="services-grid">
-          <div class="service-card">
+          <div class="service-card" data-aos="fade-up" data-aos-delay="100">
             <div class="service-icon">
-              <i class="fa-solid fa-diagram-project"></i>
+              <i class="fa-solid fa-network-wired"></i>
             </div>
-            <h3>Network Design</h3>
+            <h3>Network Installation</h3>
             <p>
-              Merancang topologi jaringan dari nol dengan standar keamanan
-              enterprise.
+              Merancang dan membangun infrastruktur jaringan, mencakup penarikan kabel Fiber Optic & LAN, serta konfigurasi router MikroTik dan Cisco dari nol.
             </p>
           </div>
-          <div class="service-card">
+          <div class="service-card" data-aos="fade-up" data-aos-delay="200">
             <div class="service-icon">
-              <i class="fa-solid fa-shield-halved"></i>
+              <i class="fa-solid fa-gauge-high"></i>
             </div>
-            <h3>Network Security</h3>
+            <h3>Network Optimization</h3>
             <p>
-              Implementasi Firewall, VPN, dan hardening sistem untuk mencegah
-              serangan siber.
+              Mengoptimalkan trafik jaringan dengan manajemen bandwidth, subnetting, routing, dan pembuatan sistem otentikasi hotspot.
             </p>
           </div>
-          <div class="service-card">
-            <div class="service-icon"><i class="fa-solid fa-wrench"></i></div>
-            <h3>Troubleshooting</h3>
+          <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <h3>IT Support & Maintenance</h3>
             <p>
-              Menganalisis dan memperbaiki masalah konektivitas, packet loss,
-              atau latency tinggi.
+              Memberikan solusi cepat untuk perbaikan PC/Laptop, instalasi sistem operasi, dan troubleshooting perangkat keras maupun lunak.
             </p>
           </div>
-          <div class="service-card">
-            <div class="service-icon"><i class="fa-solid fa-robot"></i></div>
-            <h3>Automation</h3>
+          <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-icon"><i class="fa-solid fa-laptop-code"></i></div>
+            <h3>Frontend Development</h3>
             <p>
-              Otomatisasi konfigurasi jaringan skala besar menggunakan script
-              Python atau Ansible.
+              Membangun antarmuka website yang interaktif dan responsif menggunakan fondasi modern HTML, CSS, dan JavaScript.
             </p>
           </div>
         </div>
       </section>
 
       <!-- Headline Pengalaman -->
-      <div class="section-headline" id="pengalaman">
+      <div class="section-headline" id="pengalaman" data-aos="fade-right">
         <span class="meta-info">#MY_JOURNEY</span>
         <h2>Pengalaman</h2>
       </div>
@@ -201,7 +186,7 @@
       <section id="experience" class="experience-section">
         <!-- Div ini bakal diisi data otomatis dari tabel 'experiences' di Supabase -->
         <div class="timeline" id="experience-timeline">
-          <div class="loading-state" style="padding: 20px 0">
+          <div class="loading-state" style="padding: 20px 0" data-aos="fade-in">
             <div
               class="loading-spinner"
               style="width: 25px; height: 25px; border-width: 2px"
@@ -212,33 +197,33 @@
       </section>
 
       <!-- Headline Portfolio -->
-      <div class="section-headline" id="portfolio">
+      <div class="section-headline" id="portfolio" data-aos="fade-right">
         <span class="meta-info">#SELECTED_ITEMS</span>
         <h2>Portofolio</h2>
       </div>
 
       <section class="portfolio-section">
-        <div class="filter-tabs">
+        <div class="filter-tabs" data-aos="fade-up">
           <button class="tab-btn active" data-target="all">All Items</button>
           <button class="tab-btn" data-target="project">Projects</button>
           <button class="tab-btn" data-target="cert">Certificates</button>
         </div>
 
         <div class="portfolio-grid" id="portfolio-grid">
-          <div class="loading-state" id="portfolio-loading">
+          <div class="loading-state" id="portfolio-loading" data-aos="fade-in">
             <div class="loading-spinner"></div>
             <p>Memuat portfolio...</p>
           </div>
         </div>
 
         <!-- Tombol Lihat Semua Items -->
-        <div class="view-all-wrapper" id="view-all-wrapper" style="text-align: center; margin-top: 40px; display: none;">
+        <div class="view-all-wrapper" id="view-all-wrapper" style="text-align: center; margin-top: 40px; display: none;" data-aos="fade-up">
           <button id="view-all-btn" class="btn-outline">Lihat Semua Items <i class="fa-solid fa-chevron-down"></i></button>
         </div>
       </section>
 
       <!-- Contact Box -->
-      <section class="contact-box" id="contact">
+      <section class="contact-box" id="contact" data-aos="zoom-in" data-aos-duration="800">
         <div class="contact-info">
           <h2>Hubungi <span>Saya</span></h2>
           <p>
@@ -252,7 +237,7 @@
             <a href="https://wa.me/6289673381319" target="_blank"
               ><i class="fa-brands fa-whatsapp"></i> WhatsApp</a
             >
-            <a href="https://instagram.com/amaddwho" target="_blank"
+            <a href="https://instagram.com/amadwhoo" target="_blank"
               ><i class="fa-brands fa-instagram"></i> Instagram</a
             >
             <a
@@ -307,8 +292,10 @@
       <i class="fa-solid fa-arrow-up"></i>
     </button>
 
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="config.js?v=1.0.3"></script>
-    <script src="script.js?v=1.0.3"></script>
+    <script src="config.js?v=1.0.5"></script>
+    <script src="script.js?v=1.0.5"></script>
   </body>
 </html>
